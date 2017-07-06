@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwLWB5vE1HjCIS5paH3G72jUBXEJ-ZfKI&libraries=places"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	</head>
+	<body ng-app="gPlace" ng-controller="gCtrl" >
+		<input id="city" type="text"  autocomplete="on" ng-model="user.city">
+		<br>
+		<br>
+		<select ng-model="user.college" id="collage">
+			<option>Add New Value</option>
+			<option ng-repeat="college in colleges" >{{college.name}} </option>
+		</select>
+		
+		<br>
+		Selected = {{user.college}}
+		<br>
+		<input type="hidden" id="map">
+		Angular is working : {{1+1}}
+		
+		<script type="text/javascript">
+			var gPlace = angular.module('gPlace',[]);
+			gPlace.controller('gCtrl',['$scope',function(sc){
+				 console.log("In controller");
+				 var lat = "";
+				 var lng = "";
+				 sc.colleges = "";
+				  
+				 var inputcity = document.getElementById("city");
+				 		 
+				 var searchboxcity = new google.maps.places.Autocomplete(inputcity,{types: ['(cities)']});
+				 searchboxcity.addListener('place_changed',function(){
+					 var chosencity = searchboxcity.getPlace();
+					 lat = chosencity.geometry.location.lat();
+					 lng = chosencity.geometry.location.lng();
+					 console.log(chosencity.name);
+					 console.log(lat);
+					 console.log(lng);
+					 
+					 var latlng = new google.maps.LatLng(lat,lng);
+				     var map = document.getElementById("map");
+	 				 var searchcollege = new google.maps.places.PlacesService(map, {
+						 center: latlng,
+	 				 	 zoom: 15
+					 });
+					 
+					 var request = {
+							    location: latlng,
+							    radius: "50000",
+							    type: "university"
+							  };
+					 
+					 searchcollege.textSearch(request,function(results, status){
+						 if (status == google.maps.places.PlacesServiceStatus.OK) {
+							 sc.colleges = results;
+							    for (var i = 0; i < results.length; i++) {
+							      var place = results[i];
+							      console.log(place);
+							    }
+						 }
+					 });
+				 })
+			}]);
+		</script>
+	</body>
+</html>
