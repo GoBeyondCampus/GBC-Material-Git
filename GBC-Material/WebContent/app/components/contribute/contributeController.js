@@ -1,0 +1,6 @@
+/**
+ * 
+ */
+gbcApp.controller('contributeController', function() {
+	
+})

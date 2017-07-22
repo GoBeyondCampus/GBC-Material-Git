@@ -19,9 +19,10 @@
 	<!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/material-kit.css" rel="stylesheet"/>
+    <link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet"/>
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link href="assets/css/demo.css" rel="stylesheet" />
+<!-- 	<link href="assets/css/demo.css" rel="stylesheet" /> -->
 
 	<!-- AngularJS API -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
@@ -30,12 +31,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap-wizard/1.2/jquery.bootstrap.wizard.js"></script> -->
 	
 </head>
 
-<body class="" ng-app="gbcApp" ng-controller="mainController" >
+<body class="" ng-app="gbcApp" ng-controller="mainController as mc" >
 <!-- Navbar -->
-    <nav class="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll">
+    <nav class="navbar navbar-fixed-top navbar-color-on-scroll" ng-class="{'navbar-transparent' :$state.includes('landing') }">
     	<div class="container">
         	<!-- Brand and toggle get grouped for better mobile display -->
         	<div class="navbar-header">
@@ -45,38 +47,58 @@
 		            <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
         		</button>
-        		<a ui-sref="home" target="" class="btn btn-primary btn-round btn-just-icon pull-right">
-    			   <i class="fa fa-home"></i>
-    			</a>			
-        		<a ui-sref="landing" target="" class="btn btn-primary btn-round btn-just-icon pull-right" >
-    			   <i class="fa fa-user-o"></i>
-    		    </a>
         		<a class="navbar-brand" href="#">goBeyondCampus</a>
         	</div>
 
         	<div class="collapse navbar-collapse" id="navigation-example">
         		<ul class="nav navbar-nav navbar-right">
-		            <li>
-		                <a href="#" target="_blank" class="btn btn-simple btn-white btn-just-icon">
-							<i class="fa fa-twitter"></i>
-						</a>
+        			<li ng-hide="isUserLoggedIn()">
+		                <a ui-sref="home" target="" class="btn-simple btn-white pull-right" style="text-transform: none;">
+						Sign In
+		    			</a>
 		            </li>
-		            <li>
-		                <a href="#" target="_blank" class="btn btn-simple btn-white btn-just-icon">
-							<i class="fa fa-facebook-square"></i>
-						</a>
+		            <li ng-hide="isUserLoggedIn()">
+		                <a ui-sref="contribute" target="" class="btn-simple btn-white pull-right" style="text-transform: none;">
+						Contribute
+		    			</a>
+		            </li>
+		            <li ng-show="isUserLoggedIn()">
+		                <a ui-sref="home.profile" target="" class="btn-simple btn-white pull-right" style="text-transform: none;">
+						Home
+		    			</a>
+		            </li>
+		            <li ng-show="isUserLoggedIn()">
+		                <a ui-sref="home.expert" target="" class="btn-simple btn-white pull-right" style="text-transform: none;">
+						Experts
+		    			</a>
+		            </li>
+		            <li ng-show="isUserLoggedIn()">
+		                <a ui-sref="home.question" target="" class="btn-simple btn-white pull-right" style="text-transform: none;">
+						Post a Question
+		    			</a>
+		            </li>
+		            <li class="dropdown" ng-show="isUserLoggedIn()">
+		                <a ui-sref="home" target="" class="btn-simple btn-white dropdown-toggle pull-right" data-toggle="dropdown" style="text-transform: none;">
+						{{getUserName()}}
+						<b class="caret"></b>
+		    			</a>
+		    			<ul class="dropdown-menu">
+		    				<li><a ui-sref="home.profile">Profile</a></li>
+		    				<li class="divider"></li>
+		    				<li><a href="#" ng-click="signOut()">Log Out</a></li>
+		    			</ul>
 		            </li>
 					<li>
-		                <a href="#" target="_blank" class="btn btn-simple btn-white btn-just-icon">
+		                <!-- <a href="#" target="_blank" class="btn btn-simple btn-white btn-just-icon">
 							<i class="fa fa-instagram"></i>
-						</a>
+						</a> -->
 		            </li> 
-		            <li>
-<!-- 		            	<google-Sign-Out>Sign Out</google-Sign-Out> -->
-		            	<a href="#" target="" class="btn btn-simple btn-white btn-just-icon" ng-show="isUserLoggedIn()" ng-click="clearUser()">
-							<i class="fa fa-sign-out"></i>
+		            <!-- <li>
+		            	<google-Sign-Out>Sign Out</google-Sign-Out>
+		            	<a href="#" target="" class="btn btn-simple btn-white pull-right" ng-show="isUserLoggedIn()" >
+							Log Out
 						</a> 
-		            </li>
+		            </li> -->
         		</ul>
         	</div>
     	</div>
@@ -115,6 +137,7 @@
 	<script src="assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="assets/js/material.min.js"></script>
+	
 
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 	<script src="assets/js/nouislider.min.js" type="text/javascript"></script>
@@ -124,6 +147,12 @@
 
 	<!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
 	<script src="assets/js/material-kit.js" type="text/javascript"></script>
+	
+	<!-- Plugins for material wizard -->
+	<script src="assets/js/material-bootstrap-wizard.js" type="text/javascript"></script>
+	<script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
+<!-- 	<script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script> -->
+	<script src="assets/js/jquery.bootstrap.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
 
@@ -150,27 +179,6 @@
 	  }
 	</script>
 	
-<!-- 		<script>
-		function onSuccess(googleUser) {
-	      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-	    }
-	    function onFailure(error) {
-	      console.log(error);
-	    }
-	    function renderButton() {
-	      gapi.signin2.render('my-signin2', {
-	        'scope': 'profile email',
-	        'width': 270,
-	        'height': 50,
-	        'longtitle': true,
-	        'theme': 'dark',
-	        'onsuccess': onSuccess,
-	        'onfailure': onFailure
-	      });
-	    }
-	</script>
-	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
-	
 	<!-- AngularJS scripts Start-->
 	
 	<script type="text/javascript" src=app/app.js></script>
@@ -179,8 +187,11 @@
 	<script type="text/javascript" src="app/components/login/google-plus-signin.js"></script>
 	<script type="text/javascript" src="app/components/login/loginController.js"></script>
 	<script type="text/javascript" src="app/components/login/loginModalService.js"></script>
-	<script type="text/javascript" src="app/components/home/homeController.js"></script>
+	<script type="text/javascript" src="app/components/home/homeStudentController.js"></script>
+	<script type="text/javascript" src="app/components/home/studentProfileController.js"></script>
 	<script type="text/javascript" src="app/components/login/LoginModalController.js"></script>
+	<script type="text/javascript" src="app/components/login/userInfoService.js"></script>
+	<script type="text/javascript" src="app/components/contribute/contributeController.js" ></script>
 	
 	<!-- AngularJS scripts End-->
 </html>

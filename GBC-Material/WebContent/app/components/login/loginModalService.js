@@ -9,6 +9,7 @@ gbcApp.service('loginModalService', ['$uibModal',function($uibModal) {
 	return function(){
 		var modalInstance = $uibModal.open({
 			templateUrl: 'app/components/login/LoginModal.html',
+			backdrop: 'static',
 			controller: 'LoginModalController',
 			controllerAs: 'LoginModalController'
 		})
@@ -17,6 +18,9 @@ gbcApp.service('loginModalService', ['$uibModal',function($uibModal) {
         console.log('Modal dismissed at: ' + new Date());
     })
 	
+    return modalInstance.result.catch(function () {
+        console.log('Modal dismissed at: ' + new Date());
+    })
 	
 	}
 }])
