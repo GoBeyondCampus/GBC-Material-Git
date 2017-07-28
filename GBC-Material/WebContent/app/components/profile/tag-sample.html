@@ -15,10 +15,21 @@
     
     <!-- Angular JS script -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    
+    <!-- Angular app.js File -->
+    <script src="../../app.js" type="text/javascript"></script>
+    <script src="interestDataFactory.js" type="text/javascript"></script>
+    <script src="../home/profile/interestController.js" type="text/javascript"></script>
 
     
 </head>
-<body class="profile-form" ng-app="gbcApp">
+<body class="profile-form" ng-app="gbcApp" ng-controller="autoTag"" >
 	<nav class="navbar navbar-fixed-top" role="navigation">
 		<div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -64,7 +75,7 @@
         </div>
 		<div class="main main-raised">
 			<div class="container">
-				<div class="col-md-8 col-xs-offset-2" ng-controller="autoTag">
+				<div class="col-md-8 col-xs-offset-2">
 					<h5 style="color: purple;"> Profile info is to help us help u better! </h5>
 					<div class="col-md-5" ng-repeat="interest in selectedInterests ">
 						<div class="alert alert-info">
@@ -105,10 +116,7 @@
     <script src="../../../assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="../../../assets/js/material.min.js"></script>
 	
-	<!-- Angular app.js File -->
-    <script src="../../app.js" type="text/javascript"></script>
-    <script src="interestDataFactory.js" type="text/javascript"></script>
-    <script src="interestController.js" type="text/javascript"></script>
+	
     
 
 </body>

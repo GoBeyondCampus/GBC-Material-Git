@@ -1,7 +1,7 @@
 /**
  * 
  */
-angular.module('gbcApp').factory('interestDataFactory', function($http) {
+gbcApp.factory('interestDataFactory', function($http) {
 		
 		return {
 			get : function() {

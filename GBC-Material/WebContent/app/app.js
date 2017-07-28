@@ -25,8 +25,9 @@ gbcApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
 		.state('home',{
 			abstract: false,
 			url:"/home",
-			templateUrl: "app/components/home/home.student.html",
-			controller: "homeStudentController",
+			templateUrl: "app/components/home/profile/home.profile.html",
+			controller: "studentProfileController",
+//			controller: "gCtrl",
 			data: { requireLogin: true}
 		})
 		.state('home.student',{
@@ -46,8 +47,9 @@ gbcApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider',
 		.state('home.profile',{
 			abstract: false,
 			url:"/Profile",
-			templateUrl: "app/components/home/home.student.profile.html",
+			templateUrl: "app/components/home/profile/home.profile.html",
 			controller: "studentProfileController",
+//			controller: "gCtrl",
 			data: { requireLogin: true}
 		})
 		.state('login',{

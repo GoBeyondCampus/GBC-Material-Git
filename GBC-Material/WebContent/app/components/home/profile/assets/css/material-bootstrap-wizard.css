@@ -465,7 +465,7 @@ h2.title {
   cursor: pointer;
   margin-top: 20px;
 }
-/* .wizard-card .choice .icon {
+.wizard-card .choice .icon {
   text-align: center;
   vertical-align: middle;
   height: 116px;
@@ -480,24 +480,7 @@ h2.title {
 .wizard-card .choice i {
   font-size: 40px;
   line-height: 111px;
-} */
-.wizard-card .choice .icon {
-  text-align: center;
-  vertical-align: middle;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  color: #999999;
-  margin: 0 auto 10px;
-  border: 2px solid #CCCCCC;
-  transition: all 0.2s;
-  -webkit-transition: all 0.2s;
 }
-.wizard-card .choice i {
-  font-size: 20px;
-  line-height: 40px;
-}
-
 .wizard-card .choice:hover .icon, .wizard-card .choice.active .icon {
   border-color: #2ca8ff;
 }
